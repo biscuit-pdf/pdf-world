@@ -1,0 +1,22 @@
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
+
+let UploadSchema = new Schema({
+  title : {
+    type : String,
+    minlength : [ 4, 'Minimal input length is 4']
+  },
+  author : {
+    type : String,
+    minlength : [ 4, 'Minimal input length is 4']
+  },
+  pdfUrl : {
+    type : String,
+    required : true
+  }
+  
+})
+
+let Upload = mongoose.model('Upload', UploadSchema)
+
+module.exports = Upload
