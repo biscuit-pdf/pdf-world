@@ -1,6 +1,6 @@
 const User = require('../models/user.js');
 const hashPassword = require('../helpers/hashPassword.js');
-const getJWT = require('../helpers/getJWT.js');
+const { sign, verify } = require('../helpers/getJWT');
 require('dotenv').config();
 
 
@@ -13,10 +13,15 @@ class UserController {
       })
       .then(user => {
         if(user){
-          res.status(200).json({
-            token: getJWT(user, 'sign'), 
-            userId: user._id, 
-            userName: user._email});
+          let obj = {
+            id : user._id,
+            name : user.name,
+            email : user.email
+          }
+
+          let token = sign(obj)
+
+          res.status(200).json({ token: token });
         } else {
           res.status(400).json({err: 'Wrong Username/Password'});
         }
@@ -34,7 +39,12 @@ class UserController {
         password: hashPassword(req.body.password)
       })
       .then(user => {
-        res.status(201).json(getJWT(user, 'sign'));
+        let obj = {
+          id : user._id,
+          name : user.name,
+          email : user.email
+        }
+        res.status(201).json({token : sign(obj) });
       })
       .catch(err => {
         res.status(500).json({err: err.message});
