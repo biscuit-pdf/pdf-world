@@ -5,7 +5,7 @@ const User = require('../models/user.js');
 
 module.exports = {
   authentication: (req, res, next) => {
-    
+
     const {data} = getJWT(req.headers.token, 'verify');
     return User
       .findOne({
@@ -14,6 +14,7 @@ module.exports = {
       })  
       .then(user => {
         if(!user){
+          console.log(req.headers.userid)
           res.status(400).json({err: `Invalid Token`});
         } else if(user._id != req.headers.userid) {
           res.status(400).json({err: `User Login Have Been Changed, Please Login Again`});

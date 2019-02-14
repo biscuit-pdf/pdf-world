@@ -13,7 +13,10 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: true
-  }
+  },
+  uploads: [{
+    type: Schema.Types.ObjectId, ref: 'Upload'
+  }]
 })
 
 const User = mongoose.model('User', userSchema);
