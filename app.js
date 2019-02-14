@@ -6,6 +6,7 @@ const verifyUser = require('./middlewares/verifyUser.js');
 //routes
 const bookRoute = require('./routes/bookRoute.js');
 const userRoute = require('./routes/userRoute.js');
+const fileUploadRoute = require('./routes/fileUploadRoute.js');
 
 const app = express();
 const port = 3000;
@@ -18,8 +19,10 @@ app.use(cors());
 app.use(express.urlencoded({extended: false}));
 
 //routing
-app.use('/book',verifyUser.authentication, bookRoute);
-app.use('/', userRoute);
+app.use('/user', userRoute);
+app.use(verifyUser.authentication);
+app.use('/book', bookRoute);
+app.use('/upload', fileUploadRoute);
 
 app.listen(port, () => {
   console.log(`connected on the port ${port}`)
