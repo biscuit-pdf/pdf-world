@@ -4,8 +4,8 @@ const User = require('../models/user')
 class uploadController {
   static create(req, res) {
     
-    console.log(req.file)
-    console.log(req.body)
+    // console.log(req.file)
+    // console.log(req.body)
     let url = req.file ? req.file.cloudStoragePublicUrl : ''
     let newUpload = null
     let input = {
@@ -16,13 +16,16 @@ class uploadController {
     Upload.create(input)
       .then( function(upload) {
         newUpload = upload
-        return User.findOneAndUpdate({ _id : req.headers.userid }, { $push : { uploads: upload }})
-      })
-      .then( function() {
         res
           .status(201)
-          .json(newUpload)
+          .json(upload)
+        // return User.findOneAndUpdate({ _id : req.headers.userid }, { $push : { uploads: upload }})
       })
+      // .then( function() {
+      //   res
+      //     .status(201)
+      //     .json(newUpload)
+      // })
       .catch( function(err) {
         res
           .status(400)
@@ -31,11 +34,11 @@ class uploadController {
   }
 
   static getAllFile(req, res){
-    console.log('masuk')
+    // console.log('masuk')
     return Upload
       .find()
       .then(files => {
-        res.status(200).json({files: files})
+        res.status(200).json(files)
       })
       .catch(err => {
         res.status(500).json({err: err.message})
