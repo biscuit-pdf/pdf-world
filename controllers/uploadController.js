@@ -30,6 +30,18 @@ class uploadController {
       })
   }
 
+  static getAllFile(req, res){
+    console.log('masuk')
+    return Upload
+      .find()
+      .then(files => {
+        res.status(200).json({files: files})
+      })
+      .catch(err => {
+        res.status(500).json({err: err.message})
+      })
+  }
+
   // createArticle: function(req, res) {
 
   //   let image = req.file ? req.file.cloudStoragePublicUrl : ''
