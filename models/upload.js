@@ -13,8 +13,8 @@ let UploadSchema = new Schema({
   pdfUrl : {
     type : String,
     required : true
-  }
-  
+  },
+  userId : {type: Schema.Types.ObjectId, ref: 'User'}
 })
 
 let Upload = mongoose.model('Upload', UploadSchema)

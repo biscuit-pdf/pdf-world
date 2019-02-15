@@ -20,7 +20,7 @@ app.use(express.urlencoded({extended: false}));
 
 //routing
 app.use('/user', userRoute);
-app.use(verifyUser.authentication);
+// app.use(verifyUser.authentication);  
 app.use('/book', bookRoute);
 app.use('/upload', uploadRoute);
 

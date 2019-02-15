@@ -4,6 +4,7 @@ require('dotenv').config();
 
 class BookController {
   static read(req, res){
+    console.log(req.query.q)
     req.query.q = req.query.q || ''
     axios.get(`https://www.goodreads.com/search.xml?key=${process.env.GOODREAD_API}&q=${req.query.q}`)
       .then(({data}) => {
