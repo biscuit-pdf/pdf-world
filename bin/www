@@ -7,11 +7,12 @@
 var app = require('../app');
 var debug = require('debug')('server:server');
 var http = require('http');
-
+var mongoose = require('mongoose')
+require('dotenv').config()
 /**
  * Get port from environment and store in Express.
  */
-
+mongoose.connect(process.env.MONGO, {useNewUrlParser: true});
 var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 

@@ -44,29 +44,6 @@ class uploadController {
         res.status(500).json({err: err.message})
       })
   }
-
-  // createArticle: function(req, res) {
-
-  //   let image = req.file ? req.file.cloudStoragePublicUrl : ''
-  //   console.log(req.file)
-  //   console.log(req.body)
-  //   Article.create({
-  //     title : req.body.title,
-  //     content : req.body.content,
-  //     image : image,
-  //     created_at : new Date()
-  //   })
-  //     .then( function(newData) {
-  //       res
-  //         .status(201)
-  //         .json(newData)
-  //     })
-  //     .catch( function(err) {
-  //       res
-  //         .status(400)
-  //         .json(err)
-  //     })
-  // },
 }
 
 module.exports = uploadController
