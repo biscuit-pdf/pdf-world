@@ -1,29 +1,24 @@
-const express = require('express');
-const mongoose = require('mongoose');
+var express = require('express');
+var path = require('path');
+var cookieParser = require('cookie-parser');
+var logger = require('morgan');
 const cors = require('cors');
-const verifyUser = require('./middlewares/verifyUser.js');
 
-//routes
-const bookRoute = require('./routes/bookRoute.js');
 const userRoute = require('./routes/userRoute.js');
 const uploadRoute = require('./routes/uploadRoute.js');
+const bookRoute = require('./routes/bookRoute')
 
-const app = express();
-const port = 3000;
-const databaseName = 'book-world';
-const urlDatabase = `mongodb://localhost:27017/${databaseName}`;
+var app = express();
+app.use(cors())
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
 
-mongoose.connect(urlDatabase, {useNewUrlParser: true});
-
-app.use(cors());
-app.use(express.urlencoded({extended: false}));
-
-//routing
 app.use('/user', userRoute);
 // app.use(verifyUser.authentication);  
 app.use('/book', bookRoute);
 app.use('/upload', uploadRoute);
 
-app.listen(port, () => {
-  console.log(`connected on the port ${port}`)
-})
+module.exports = app;
