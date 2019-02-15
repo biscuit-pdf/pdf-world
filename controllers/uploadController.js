@@ -16,7 +16,7 @@ class uploadController {
     Upload.create(input)
       .then( function(upload) {
         newUpload = upload
-        return User.findByIdAndUpdate(req.headers.userid, { $push : { uploads: upload }})
+        return User.findOneAndUpdate({ _id : req.headers.userid }, { $push : { uploads: upload }})
       })
       .then( function() {
         res
